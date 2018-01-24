@@ -18,14 +18,17 @@ import org.json.simple.parser.ParseException;
 public class ImportUser {
     
     public static User importUser(String jsonUser) {
-        JSONParser parser = new JSONParser();
+        if (jsonUser == null) {
+            return null;
+        } else if (jsonUser.isEmpty()) {
+            return null;
+        }
         JSONObject object = null;
         try {
-            object = (JSONObject) parser.parse(jsonUser);
+            object = (JSONObject) new JSONParser().parse(jsonUser);
         } catch (ParseException ex) {
-            Logger.getLogger(ImportUser.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage() + "  Помилка");
         }
-        User user = new User(object.get("name") + "", object.get("email") + "", object.get("phone") + "");
-        return user;
+        return new User(object.get("name") + "", object.get("email") + "", object.get("phone") + "");
     }
 }
