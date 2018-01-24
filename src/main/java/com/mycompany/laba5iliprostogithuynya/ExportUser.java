@@ -19,12 +19,12 @@ import org.json.simple.parser.ParseException;
 public class ExportUser {
     
     public static String exportUser(User user) {
-        ObjectMapper mapper = new ObjectMapper();
+        if (user == null) return null;
         String jsonUser = null;
         try {
-            jsonUser = mapper.writeValueAsString(user);
+            jsonUser = new ObjectMapper().writeValueAsString(user);
         } catch (JsonProcessingException ex) {
-            Logger.getLogger(ExportUser.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage() + "  Помилка");
         }
         return jsonUser;
     }
